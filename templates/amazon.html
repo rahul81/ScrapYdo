@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+
+<!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
+
+
+{%block content %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<section class="text-gray-700 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+        <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">Choose the number of Interview experiences you want to scrap.</h1>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dd">
+              <a class="dropdown-item" href="#">15</a>
+              <a class="dropdown-item" href="#">30</a>
+              <a class="dropdown-item" href="#">45</a>
+              <a class="dropdown-item" href="#">60</a>
+              <a class="dropdown-item" href="#">75</a>
+              <a class="dropdown-item" href="#">90</a>
+              <a class="dropdown-item" href="#">105</a>
+              <a class="dropdown-item" href="#">120</a>
+              <a class="dropdown-item" href="#">135</a>
+              <a class="dropdown-item" href="#">150</a>
+
+
+
+            </div>
+          </div>
+
+        <button type="submit" href='/' class="flex-shrink-0 text-white bg-orange-500 border-0 py-2 px-8 focus:outline-none hover:bg-orange-600 rounded text-lg mt-10 sm:mt-0" id='submit'>Button</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+
+  var txt = {}
+  $(document).ready(function () {
+    $('#dd a').on('click', function () {
+      txt= ($(this).text());
+      console.log(txt);
+    });
+  });
+
+
+$('#submit').click(function(){
+
+
+  $.ajax({
+          type: "POST",
+          contentType: "application/json;charset=utf-8",
+          url: "/amazonscrap",
+          traditional: "true",
+          data: JSON.stringify({txt}),
+          dataType: "json"
+          });
+  window.location="/results";
+})
+    
+  </script>
+
+  {% endblock %}
+
+
+
+<!-- <script>
+alert($('#dropdownMenuButton').val());
+console.log($('#dropdownMenuButton').val());
+</script> -->

@@ -1,0 +1,41 @@
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+
+    <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+      <a class="mr-5 hover:text-gray-900" href="/">Home</a>
+      <a class="mr-5 hover:text-gray-900" href="/scrap">Scrap Inteviews</a>
+      <a class="mr-5 hover:text-gray-900" href="/about">About</a>
+      <a class="mr-5 hover:text-gray-900" href="/contact">Contact</a>
+    </nav>
+    <p>Requested data is being fetched please be patient :)</p>
+    <p>Refresh every 10 seconds to load new data:
+        <button type="button" class="btn btn-info" onclick="window.location.reload();">
+          <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </button>
+        <button type="button" class="btn btn-success" onclick="window.location.href='/download'">Download!</button>
+      </p>
+    
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
+</body>
+
+</html>
+
+<script>
+    // location.reload();
+</script>
+
