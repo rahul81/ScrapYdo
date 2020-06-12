@@ -85,7 +85,7 @@ def mpost():
     print(df)
 
 
-=    return redirect(url_for('results'))
+    return redirect(url_for('results'))
 
 @app.route('/oraclescrap',methods=('POST','GET'))
 def opost():
