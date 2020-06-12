@@ -4,14 +4,26 @@ import pandas as pd
 import time 
 
 
+
+#function to scrap_data
+
 def scrap_data(num,name):  
 
+    #create an empty dataframe
     df = pd.DataFrame()
 
-    i='https://www.geeksforgeeks.org/tag/'
-    orig_url= i + name
+
+    
+    i='https://www.geeksforgeeks.org/tag/' #base url
+
+    
+    orig_url= i + name  #store the url in a different variable for reuse
         
     for j in range(1,100):
+
+
+
+        #initialize empty lists to hold the attributes of the scrap data
 
         ID = []
         titles = []
@@ -30,6 +42,8 @@ def scrap_data(num,name):
         try: 
             print(i)
             check = html = requests.get(i)
+
+            #if page is not found break the loop
             if str(check) == "<Response [404]>":
                 print("Page {} not found".format(j))
                 break
@@ -37,17 +51,20 @@ def scrap_data(num,name):
                 pass
             html = html.text
 
-
+            #create a bs4 object of the html page
             soup = BeautifulSoup(html, "lxml")
 
+            #get all the content with class ='archive-title'
             tag = soup.find(class_='archive-title').span.contents[0]
             print(tag)
 
+            
             articles = soup.find_all('article')
             print(len(articles))
 
             links = []
             a = articles[0]
+            #for each article extract the url
             for article in articles:
                 link= article.find('a')['href']
                 links.append(link)
@@ -56,12 +73,14 @@ def scrap_data(num,name):
 
 
 
-            # variables
+            
 
 
 
             count = 0
 
+
+            #loop throughout all the extracted urls and get the content of each post such as text,upvote,title,etc
             for link in links:
                 # url = 'https://www.geeksforgeeks.org/amazon-interview-experience-sde-2-3/'
 
@@ -79,7 +98,6 @@ def scrap_data(num,name):
                 titles.append(title)
 
                 ids = post('article')[0]['id'].split('-')[1]
-                # print("id :",id )
                 ID.append(ids)
 
                 upvote = soup.find('div',class_='plugins upvoteArticle').span.contents
@@ -93,8 +111,6 @@ def scrap_data(num,name):
                 date= script[0].split('\n')[-3].split('=')[1].split('"')[1].split(' ')[0]
                 dates.append(date)
 
-                # s = s[1].split('"')
-                # s = s[1].split(' ')[0]
 
 
 
@@ -156,12 +172,11 @@ def scrap_data(num,name):
             
         
 
-            # df.to_sql(table,connection,if_exists='append')
-            # del data
-            # del df 
-            # print("Page {} appended to database".format(j))
+
         except Exception as e:
             print(e)
+
+        #if entries in dataframe are more than chosen number break the loop and return the dataframe
         if len(df) >= int(num):
             break
     return df
